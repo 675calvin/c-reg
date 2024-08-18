@@ -1,0 +1,46 @@
+/* Light Theme */
+.theme-light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f0f0;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent-color: #3498db;
+}
+
+/* Dark Theme */
+.theme-dark {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2c2c2c;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --accent-color: #3498db;
+}
+
+/* Jungle Theme */
+.theme-jungle {
+  --bg-primary: #2ecc71;
+  --bg-secondary: #27ae60;
+  --text-primary: #ffffff;
+  --text-secondary: #ecf0f1;
+  --accent-color: #f39c12;
+}
+
+/* Apply theme variables */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.accent {
+  color: var(--accent-color);
+}
+
+/* Add more theme-specific styles as needed */
