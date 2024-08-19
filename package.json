@@ -27,6 +27,7 @@
   "dependencies": {
     "firebase": "^10.13.0",
     "lucide-react": "^0.427.0",
-    "react-router-dom": "^6.26.0"
+    "react-router-dom": "^6.26.0",
+    "recharts": "^2.12.7"
   }
 }

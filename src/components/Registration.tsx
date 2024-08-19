@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { Mail, Lock, User, AlertCircle } from 'lucide-react';
 
 const Registration: React.FC = () => {
@@ -9,6 +10,7 @@ const Registration: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("level3AO");
   const [error, setError] = useState("");
 
   const handleRegistration = async (e: React.FormEvent) => {
@@ -16,6 +18,15 @@ const Registration: React.FC = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
+
+      // Add user role to Firestore
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        name,
+        email,
+        role,
+        createdAt: new Date(),
+      });
+
       navigate("/");
     } catch (error) {
       setError("Failed to create an account. Please try again.");
@@ -96,6 +107,25 @@ const Registration: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+            </div>
+
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                Role
+              </label>
+              <select
+                id="role"
+                name="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              >
+                <option value="level3AO">Level 3 AO</option>
+                <option value="level2AO">Level 2 AO</option>
+                <option value="level1AO">Level 1 AO (CEO)</option>
+                <option value="secretary">Secretary</option>
+                <option value="admin">Administrator</option>
+              </select>
             </div>
 
             {error && (
